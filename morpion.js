@@ -12,12 +12,13 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
          */
 
     // - - - - - - - - - //
-        this.tableau        = Array(tailleTableau);
-        this.tailleTableau  = tailleTableau;
-        this.nbCase         = nbCaseW;
-        this.valeurTableau  = valeurTableau;
-        this.maLigne = Array(this.tailleTableau);
-        this.gagnant        = "";
+        this.tableau         = Array(tailleTableau);
+        this.tailleTableau   = tailleTableau;
+        this.nbCaseW         = nbCaseW;
+        this.valeurTableau   = valeurTableau;
+        this.maLigne         = Array(this.tailleTableau);
+        this.valeurDeMaLigne = 0;
+        this.gagnant         = "";
 
     // - - - - - - - - - //
         this.reset_Tableau = function() {
@@ -98,7 +99,6 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
                         for (j = 0; j < this.tailleTableau; j++) {
                             chaine += this.tableau[i][j] + " ";
                         }
-                        console.log(chaine);
                     }
                     document.write(chaine);
                 }
@@ -117,68 +117,59 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
 
 
         this.remplir_Ma_Ligne = function (value) {
-            this.maLigne.push() = value ;
+                this.maLigne[this.valeurDeMaLigne] = value  ;
+                this.valeurDeMaLigne++;
         }
 
         this.test_Ma_ligne = function() {
-
-            console.log("test_Ma_ligne");
-
             i               = 0;
             signeConsecutif = 0;
             signePrecedant  = "";
             sortie          = false;
 
+            while (!sortie && i < this.maLigne.length) {
+                if (signePrecedant != this.maLigne[i]) {
+                    signeConsecutif = 1;
+                    signePrecedant = this.maLigne[i];
+                }
+                else if (this.maLigne[i] != this.valeurTableau[0] && this.maLigne[i] == signePrecedant) { 
+                    signeConsecutif++;
+                }
+                if (signeConsecutif >= this.nbCaseW) {
+                    sortie = true;
+                    this.gagnant = signeConsecutif;
+                }
+                i++;
+            }
             console.table(this.maLigne);
-            console.log(this.maLigne);
-            
-
-            // while (!sortie || i < this.maLigne.length) {
-
-            //     console.log("test_Ma_ligne - - - " + i);
-                
-            //     if (signePrecedant != this.maLigne[i]) {                
-            //         signeConsecutif = 1;
-            //         signePrecedant = this.maLigne[i];
-            //     }
-            //     else if (this.maLigne[i] != this.valeurTableau[0]) {
-            //         signeConsecutif++;
-            //     }
-
-            //     if (signeConsecutif >= this.nbCaseW) {
-            //         sortie = true;
-            //         this.gagnant = signeConsecutif;
-            //     }
-            //     i++;
-            // }
             return sortie;
         }
 
         this.reset_Ma_Ligne = function() {
-            this.maLigne = Array(this.tailleTableau);
+            this.maLigne         = Array(this.tailleTableau);
+            for (let i = 0; i < this.tailleTableau; i++) {
+                this.maLigne[i] = this.valeurTableau[0];
+            }
+            this.valeurDeMaLigne = 0;
         }
 
     // - - - - - - - - //
         /**
          * Renvoye le gagnant pour les ligne horizontal
          *
-         *  . | X | .
-         *  . | X | .
-         *  . | X | .
+         *  . | . | .
+         *  X | X | X
+         *  . | . | .
          *
          */
             this.verif_winner_Horizontal = function() {
-                
-                
-                console.log("verif_winner_Horizontal");
+                this.reset_Ma_Ligne();
 
-
-                i = 0;
-                while (!this.test_Ma_ligne() && i <= this.tailleTableau) {
+                let i = 0;
+                while (!this.test_Ma_ligne() && i < this.tailleTableau) {
                     this.reset_Ma_Ligne();
-                    j = 0;
-                    while (!this.test_Ma_ligne() && j  <= this.tailleTableau) {
-                        console.log(i + " " +j)
+                    let j = 0;
+                    while (!this.test_Ma_ligne() && j < this.tailleTableau) {
                         this.remplir_Ma_Ligne(this.tableau[i][j]);
                         j++;
                     }
@@ -190,21 +181,18 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
         /**
          * Renvoye le gagnant pour les ligne vertical
          *
-         *  . | . | .
-         *  X | X | X
-         *  . | . | .
+         *  . | X | .
+         *  . | X | .
+         *  . | X | .
          *
          */
             this.verif_winner_Vertical = function () {
-
-
-                console.log("verif_winner_Vertical");
-
-
-                j = 0;
+                this.reset_Ma_Ligne();
+                
+                let j = 0;
                 while (!this.test_Ma_ligne() && j <= this.tailleTableau) {
                     this.reset_Ma_Ligne();
-                    i = 0;
+                    let i = 0;
                     while (!this.test_Ma_ligne() && i + this.nbCaseW <= this.tailleTableau) {
                         this.remplir_Ma_Ligne(this.tableau[i][j]);
                         i++;
@@ -223,14 +211,12 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
          *
          */
             this.verif_winner_Diagonal_GtoD = function () {
+                this.reset_Ma_Ligne();
 
 
-                console.log("verif_winner_Diagonal_GtoD");
-                
-
-
-                t = 0; // tampon
-                j = 0;
+                let t = 0; // tampon
+                let j = 0;
+                let i = 0;
                 while (!this.test_Ma_ligne() && j + this.nbCaseW < this.tailleTableau) {
                     this.reset_Ma_Ligne();
                     i = 0;
@@ -270,14 +256,11 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
          * 
          */
             this.verif_winner_Diagonal_DtoG = function () {
+                this.reset_Ma_Ligne();
 
-
-                console.log("verif_winner_Diagonal_DtoG");
-
-
-
-
-                t = this.tailleTableau - 1;
+                let t = this.tailleTableau - 1;
+                let j = t;
+                let i = 0;
                 while (!this.test_Ma_ligne() && this.nbCaseW - t >= 0) {
                     i = 0;
                     while (!this.test_Ma_ligne() && j > 0) {
@@ -314,10 +297,57 @@ function Morpion(tailleTableau = 5, nbCaseW = 3, valeurTableau = [0,1,2]) {
                 return (    this.verif_winner_Horizontal()    ||
                             this.verif_winner_Vertical()      ||
                             this.verif_winner_Diagonal_GtoD() ||
-                            this.verif_winner_Diagonal_DtoG()
+                            this.verif_winner_Diagonal_DtoG() 
                         ) 
                         ? this.gagnant
                         : false;
             }
+
+
+    // ===================================================================================================================================== //
+            /*                                                        T E S T                                                           */
+            // ------------------------------------------------------------------------------------------------------------------------ //
+
+        this.testHorizontal = function() {
+
+            // --------------------------------------------------------------------
+                this.valeurTableau = [".", "X", "O"];
+                this.tailleTableau = 5;
+                this.nbCaseW       = 3;
+                this.maLigne       = Array(this.tailleTableau);
+                
+                this.tableau =  [
+                    ["X", "O", "O", "X", "X"],
+                    ["X", "O", "O", ".", "."],
+                    [".", "X", "O", "X", "O"],
+                    ["O", "O", ".", ".", "."],
+                    ["O", "O", "X", "X", "X"],
+                ];
+
+                (this.reset_Ma_Ligne) ? console.log("OK") : console.log("ERREUR");
+
+            // ---------------------------------------------------------------------
+
+                this.valeurTableau = [".", "X", "O"];
+                this.tailleTableau = 5;
+                this.nbCaseW = 3;
+                this.maLigne = Array(this.tailleTableau);
+
+                this.tableau = [
+                    ["", "", "", "", ""],
+                    ["", "", "", "", ""],
+                    ["", "", "", "", ""],
+                    ["", "", "", "", ""],
+                    ["", "", "", "", ""],
+                ];
+
+                (!this.reset_Ma_Ligne) ? console.log("OK") : console.log("ERREUR");
+
+
+        }
+
+
+    // ===================================================================================================================================== //
+
         
 }

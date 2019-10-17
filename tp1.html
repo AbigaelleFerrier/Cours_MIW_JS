@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TP 1 - 16/10/2019</title>
+
+    <script>
+        
+
+        /** ====================
+         *  P = {
+         *      to : null
+         *  }
+         * 
+         *  Pers(n) = {
+         *      nom : "****"
+         *      to  : P(n+1)
+         *  }
+        ======================== */
+
+            var p = {
+                to : null
+            }
+
+            function Pers (nom) {
+                this.nom = nom;
+                this.to  = null;
+            }
+
+            function test_initialisation() {
+                ajout("Wend");               
+                ajout("Loic");
+                ajout("Morgan");
+                ajout("Theo");
+                ajout("Lucas");
+                ajout("Hugo");
+                ajout("Bryan");
+            }
+
+        /* ===================== */
+
+        function liste() {
+            document.getElementById("A").innerHTML = "";
+            if(i = p.to) {
+                while (i.to != null) {
+                    document.getElementById("A").innerHTML += i.nom + "<br>";
+                    i = i.to;
+                }
+                document.getElementById("A").innerHTML += i.nom + "<br>";
+            }
+            else {
+                document.getElementById("A").innerHTML = "Liste vide"
+            }
+            
+        }
+
+        function ajout(nom) {
+            if(p.to == null) {                  // Si notre pointeur n'a encore jamais etais utiliser
+                p.to = new Pers(nom);
+                liste();
+                return "Ajout effectuer";
+            }
+            else {
+                pers0           = p.to;             // On recup l'obj Pers[0]
+                newPersonne     = new Pers(nom);    // On cree notre nouvelle arrivant
+                p.to            = newPersonne       // On remplace l'adresse de Pers[0] par celui a ajouter
+                newPersonne.to  = pers0             // On indique l'adresse de Pers[0] a celui a ajouter pour qu'il devienne Pers[1]
+
+                liste();
+                return "Ajout effectuer";
+            }
+            return "ERREUR"
+        }
+
+        function suppression(nom) {
+            i           = p.to;
+            precedant   = null;
+
+            while (i.to != null && i.nom != nom) {
+                precedant = i ;
+                i = i.to;
+                
+            }
+
+            if (i.nom == nom) { // on a trouver la personne a supp
+                if(precedant == null) { // premier element de la liste
+                    p.to = i.to;
+                    liste();
+                    return "Suppression OK";
+                }
+                else {
+                    precedant.to = i.to;
+                    liste();
+                    return "Suppression OK";
+                }
+                
+            }
+            else { // on ne la pas trouver
+                return "Nom pas trouver";
+            }
+            return "ERREUR";
+        }
+
+        function init() {
+            if(p.to != null) {
+                i    = p.to;
+                p.to = null;
+                while (i.to != null) {
+                    z       = i.to;
+                    i.to    = null;
+                    i.nom   = null;
+                    i       = z;
+                }
+                z    = null;
+                p.to = null;
+            }
+        }
+    
+    
+    
+    </script>
+
+
+</head>
+<body>
+    <button onclick="test_initialisation()">START</button>
+    <button onclick="liste()">AFFICHE</button>
+    
+    
+    <input  onblur ="alert(ajout(this.value)); this.value = ''"         placeholder="ajouter"      type="text">
+    <input  onblur ="alert(suppression(this.value)); this.value = ''"   placeholder="suppression"  type="text">
+
+    <hr>
+    <div id="A">
+
+    </div>
+    
+</body>
+</html>

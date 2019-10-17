@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a onclick="exo1()">Ouverture</a>
+    <img id="img" onMouseOver="exo6_1()" onMouseOut="exo6_2()" src="https://picsum.photos/300/300?random=1" alt="">
+    <script>
+        // // Exo 1
+        //     function exo1() {
+        //         alert("Bienvenue")
+        //     }
+        
+        // // Exo 2
+        //     alert("Bonjour");
+
+        // // Exo 3
+        //     if (confirm('Voulez vous continuez?')) {
+        //         alert("OUI");
+        //     } else {
+        //         alert("NON");
+        //     }
+        
+        // // Exo 4
+        //     doc = new Date(document.lastModified);
+        //     alert(doc.getDate() + "/" + doc.getUTCMonth() + "/" + doc.getUTCFullYear());
+
+        // // Exo 5
+        //     np = prompt("Nom Prenom", "ferrier cirill");
+        //     alert("Bonjour : " + np.split(' ')[0].replace(/^./, np.split(' ')[0][0].toUpperCase()) + ", " + np.split(' ')[1].replace(/^./, np.split(' ')[1][0].toUpperCase()));
+
+        // // Exo 6
+            function exo6_1() {
+                console.log("1");
+                document.getElementById("img").src = "https://picsum.photos/300/300?random=1&blur=2";
+            }
+            function exo6_2() {
+                console.log("2");
+                document.getElementById("img").src = "https://picsum.photos/300/300?random=1";
+            }
+
+        // // Exo 7 
+            // alert("appName :" + navigator.appName + " | appCodeName : " + navigator.appCodeName + " | platform : " + navigator.platform + " | AppVersion : " + navigator.appVersion);
+
+        // // Exo 8
+        //     np = prompt("Nom Prenom", "ferrier cirill");
+        //     n = np.split(' ')[0];
+        //     p = np.split(' ')[1];
+
+        //     alert("Nombre Carac nom : "      + n.length          + "\n" +
+        //           "Nombre Carac prenom : "   + p.length          + "\n" +
+        //           "Trois premiers carac : "  + n.substring(0, 3) + "\n" +
+        //           "Trois premiers carac : "  + p.substring(0, 3)
+        //           );
+        
+        // Exo 9
+
+
+        // ========================================================================================================================= //
+            // EXO 1
+            a = function(v) {
+                reg = /^(-|\+|\.)?(\d+)(\.|\.\d+)?$/;
+
+                v.replace(",", ".");
+
+                // -----------------------------------
+                if (reg.test(v)) {
+
+                    // ----------------------------------
+                    regInt = /^(-|\+)?\d+(\.)?$/;
+                    if (regInt.test(v)) {
+                        return v;
+                    }
+
+                    regFloat = /^(\.|\+|-)?(\d+)(\.\d+)?$/;
+
+                    if (regFloat.test(v)) {
+
+                        reg0 = /^\.(\d+)$/;
+                        regFloat = /^(\+|-)?(\d+)(\.\d+)?$/;
+
+                        if(reg0.test(v)){
+                            v = "0" + v;
+                            return v;
+                        }
+                        else if(regFloat.test(v)) {
+                            return v;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            b = function(v) {
+                return  (v%2 == 0) ? true : false
+            }
+
+
+            c = function(v, NBvirgule) {
+                virgule = v.split(",");
+                return v[0].split(",") + "," + virgule[1].substr(0,NBvirgule);
+            } 
+
+            console.log(a("45")); // vrai
+            console.log(a("0.1000")); //vrai
+            console.log(a("42.4")); // vrai
+            console.log(a("2.")); // vrai
+            console.log(a(".20")); // vrai
+            console.log(a("+78")); // vrai
+            console.log(a("-78"));// vrai
+            console.log(a("-6.14")); // vrai
+            console.log(a("ABC")); // faux
+            console.log(a("12ABC12")); //faux
+            console.log(a("")); //faux
+
+            console.log("-----------------------");
+
+            console.log(b("1"));
+            console.log(b("2"));
+
+            console.log("-----------------------");
+
+            console.log(c("1,23456789", 3));
+
+
+
+
+
+
+    </script>
+</body>
+</html>
