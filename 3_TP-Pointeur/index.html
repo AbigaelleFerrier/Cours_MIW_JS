@@ -116,10 +116,9 @@
                 z    = null;
                 p.to = null;
             }
+            liste()
         }
-    
-    
-    
+        
     </script>
 
 
@@ -129,8 +128,10 @@
     <button onclick="liste()">AFFICHE</button>
     
     
-    <input  onblur ="alert(ajout(this.value)); this.value = ''"         placeholder="ajouter"      type="text">
-    <input  onblur ="alert(suppression(this.value)); this.value = ''"   placeholder="suppression"  type="text">
+    <input  onblur ="if(this.value != '') { alert(ajout(this.value));       this.value = '';}"   placeholder="ajouter [onblur]"      type="text">
+    <input  onblur ="if(this.value != '') { alert(suppression(this.value)); this.value = '' }"   placeholder="suppression [onblur]"  type="text">
+
+    <button onclick="init()">init()</button>
 
     <hr>
     <div id="A">
