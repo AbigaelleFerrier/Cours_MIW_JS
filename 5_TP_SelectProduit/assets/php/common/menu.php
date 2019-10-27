@@ -24,7 +24,7 @@
     </div>
 
     <span class="navIcon">
-        <a href="https://">
+        <a href="https://github.com/FerrierCirill/MorpionJS/tree/master/5_TP_SelectProduit">
             <svg class="icon"><use xlink:href="#github"></use></svg> Code Source du projet
         </a>
     </span>
