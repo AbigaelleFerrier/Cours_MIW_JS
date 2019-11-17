@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+        // Object.prototype.each = function () { for (i in this) { alert(i + " : " + this[i]) } };
+        //     var t = { "nom": "Dupont", "prenom": "Pierre" };
+        //     t.each(); // affiche les propriétés et les valeurs du tableau t plus la méthode each()
+
+        // String.prototype.left = function(n) {
+        //     return this.substr(0,n);
+        // }
+
+        // String.prototype.right = function(n) {
+        //     return this.substr(this.length-n, n);
+        // }
+
+        // String.prototype.capital = function() {
+        //     return this.left(1).toUpperCase(0,1) + this.right(this.length-1);
+        // }
+
+
+        Object.prototype.extend = function (obj) {
+            for (let i in obj) {
+                Object.prototype[i] = obj[i];
+            }
+        };
+
+        String.prototype.extend({
+            left: function (n) {
+                return this.substring(0, n);
+            },
+            right: function (n) {
+                return this.substring(this.length - n, this.length);
+            },
+            capitalize: function () {
+                return this.left(1).toUpperCase() + this.right(this.length - 1).toLowerCase();
+            },
+            trim: function () {
+                return this.replace(/^[\s]+|[\s]+$/g, '');
+            }
+        });
+
+        console.log(String.prototype);
+        
+    </script>
+</body>
+</html>

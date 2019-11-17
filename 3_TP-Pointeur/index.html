@@ -59,7 +59,7 @@
         function ajout(nom) {
             if(p.to == null) {                  // Si notre pointeur n'a encore jamais etais utiliser
                 p.to = new Pers(nom);
-                liste();
+                // liste();
                 return "Ajout effectuer";
             }
             else {
@@ -68,7 +68,7 @@
                 p.to            = newPersonne       // On remplace l'adresse de Pers[0] par celui a ajouter
                 newPersonne.to  = pers0             // On indique l'adresse de Pers[0] a celui a ajouter pour qu'il devienne Pers[1]
 
-                liste();
+                // liste();
                 return "Ajout effectuer";
             }
             return "ERREUR"

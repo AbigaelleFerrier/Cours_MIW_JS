@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EXO 3</title>
+    <style>
+        td {
+            border: 2px solid #000;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+
+<form id="formulaire">
+    
+</form>
+
+<script>
+    var devises = [
+            { 'devise' : 'EURO', 'montant' : 'ERR', 'cours' : '1'      , 'uniter' : 'Euro' },
+            { 'devise' : 'USDD', 'montant':  'ERR', 'cours' : '1.2693' , 'uniter' : 'USD'  },
+            { 'devise' : 'FRFF', 'montant':  'ERR', 'cours' : '6.55957', 'uniter' : 'FRF'  },
+            { 'devise' : 'AUDD', 'montant' : 'ERR', 'cours' : '1.443'  , 'uniter' : 'AUD'  }
+        ];
+
+    function remplisageAuto() {
+        for (let i = 0; i < devises.length; i++) {
+            document.getElementById('formulaire').innerHTML += 
+                `   <input value="${devises[i]['devise']}" readonly>
+                    <input value="${devises[i]['montant']}" onchange="calcul(this.value, ${i})">
+                    <input value="1 Euro = ${devises[i]['cours']} ${devises[i]['uniter']}" readonly>
+                    </br>`;
+        }
+    }
+
+    remplisageAuto()
+
+    function calcul(value, devise) {
+        let rapportEnEuro   = value / devises[devise]['cours'];
+        let formulaire      = document.getElementById('formulaire');
+        let parcourDevise   = 0;
+
+        for (let i = 0; i < formulaire.length; i++) {
+            if(i%3==1) {
+                formulaire[i].value = (rapportEnEuro * devises[parcourDevise]['cours']).toFixed(4);
+                parcourDevise++;
+            }
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="a" value="HELLE">
+
+    <script>
+        const __id = (id) => { return document.getElementById(id); };
+            const __tn = (name) => { return document.getElementsByTagName(name); };
+            const __n = (name) => { return document.getElementsByName(name); };
+            const __qs = (query) => { return document.querySelector(query); };
+            const __qsa = (query) => { return document.querySelectorAll(query); };
+
+
+            function ajax(methode, path, data) {
+
+                var xhr = new XMLHttpRequest();
+                xhr.open(methode, path, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        return xhr.responseText;
+                    }
+                }
+
+                xhr.send(data);
+            }
+
+            if (a = __id('a')) {
+                console.log(a.value);
+            }
+            else {
+                
+            }
+
+        
+        </script>
+</body>
+</html>

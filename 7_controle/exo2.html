@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exo 2</title>
+</head>
+<body>
+
+<form>
+    <select id="remplisageAuto" onchange="change(this.value)">
+        <option disabled selected>------</option>
+    </select>
+
+    <label for="max">max</label>
+    <input type="text" id="max">
+
+    <label for="min">min</label>
+    <input type="text" id="min">
+
+    <label for="moy">moy</label>
+    <input type="text" id="moy">
+</form>
+
+
+<script>
+    var temp = [
+        { 'ville' : 'Gap' , 'max' : '38', 'min' : '-10', 'moy' : '18' },
+        { 'ville' : 'Nice', 'max' : '40', 'min' : '2'  , 'moy' : '20' },
+        { 'ville' : 'Test', 'max' : '50', 'min' : '-50', 'moy' : '0'  }
+    ]
+
+    function remplisageAuto() {
+        for (let i = 0; i < temp.length; i++) {
+            document.getElementById('remplisageAuto').innerHTML += '<option value="'+ i +'">'+ temp[i]['ville'] +'</option>';
+        }
+    }
+
+    remplisageAuto();
+
+    function change(value) {
+        document.getElementById('max').value =  temp[value]['max'];
+        document.getElementById('min').value =  temp[value]['min'];
+        document.getElementById('moy').value =  temp[value]['moy'];
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>

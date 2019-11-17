@@ -1,9 +1,49 @@
-<?php 
-    include 'assets/php/controler/CONTROLER.php' ;
-    echo HEAD::headerHTML('Accueil');
-?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/script.js"></script>
+
+    <title>'. $namePage .'</title>
+</head>
+
+<body>
     <body>
-        <?php include 'assets/php/common/menu.php' ?>
+        <div class="navLike">
+            <div>
+                <input id="burger" type="checkbox" />
+                <label for="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+
+                <h2>Titre inutile</h2>
+
+                <nav>
+                    <div><a href="#">Link #0</a></div>
+                    <div><a href="#">Link #1</a></div>
+                    <div><a href="#">Link #2</a></div>
+                    <div><a href="#">Link #3</a></div>
+                    <div><a href="#">Link #4</a></div>
+                    <div><a href="#">Link #5</a></div>
+                    <div><a href="#">Link #6</a></div>
+                    <div><a href="#">Link #7</a></div>
+                    <div><a href="#">Link #8</a></div>
+                    <div><a href="#">Link #9</a></div>
+                </nav>
+            </div>
+
+            <span class="navIcon">
+                <a href="https://github.com/FerrierCirill/MorpionJS/tree/master/5_TP_SelectProduit">
+                    <svg class="icon"><use xlink:href="#github"></use></svg> Code Source du projet
+                </a>
+            </span>
+        </div>
 
         <div class="container">
             <div class="row">
@@ -108,7 +148,10 @@
 
         
 
-        <?php include 'assets/php/common/footer.php' ?>
+        <footer>
+            <p>Cirill Ferrier - MIW 2019/2020</p>
+            <?php include 'assets/img/svg/sprite.svg'?>
+        </footer>
 
         <datalist id="produits">
         </datalist>
