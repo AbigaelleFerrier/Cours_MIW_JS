@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V 3</title>
+    <script src="./lib.js"></script>
+</head>
+<body>
+    
+
+    <script>    
+        var tableauDeEvent = [];
+        let temp = [
+            { "mois": "Janvier",    "tp": [2, 1, 5, 2, 10, -10, 11, 2, 1, 0, 5, 2, 2, 10, 5, 2, 2, 0, -2, 1, 2, 0, 5, -8, 0, 5, 2, 2, 10, 5, 2] }, 
+            { "mois": "Février",    "tp": [2, 0, 5, 2, 10, 10, 5, -2, -2, 10, 5, 2, 2, 8, 5, 10, 12, 10, 5, 10, 10, 10, 11, 8, 10, 5, 10, 10] }, 
+            { "mois": "Mars",       "tp": [2, 1, 5, 1, 12, 10, 5, 1, 12, 10, 5, 1, 2, 10, 1, 1, 12, 10, 15, 12, 12, 10, 15, 12, 10, 15, 12, 12, 10, 15, 12] }, 
+            { "mois": "Avril",      "tp": [1, 1, 5, 1, 10, 10, 9, 12, 9, 10, 9, 12, 2, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 10, 15, 12, 12, 10, 15] }, 
+            { "mois": "Mai",        "tp": [12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 10, 15, 12, 12, 10, 15, 12] }, 
+            { "mois": "Juin",       "tp": [12, 10, 25, 12, 22, 20, 15, 12, 12, 10, 15, 12, 12, 10, 25, 12, 22, 20, 25, 12, 22, 22, 15, 12, 10, 15, 12, 12, 10, 15] }, 
+            { "mois": "Juillet",    "tp": [22, 30, 25, 22, 22, 30, 25, 22, 22, 30, 35, 32, 32, 30, 25, 22, 22, 30, 25, 22, 22, 30, 25, 22, 30, 25, 32, 32, 20, 25, 22] }, 
+            { "mois": "Aout",       "tp": [23, 31, 26, 23, 23, 29, 24, 21, 21, 31, 31, 30, 30, 30, 24, 22, 23, 30, 28, 22, 22, 30, 28, 22, 31, 25, 30, 28, 20, 28, 22] }, 
+            { "mois": "Septembre",  "tp": [22, 30, 25, 22, 22, 30, 25, 22, 22, 30, 35, 32, 32, 30, 25, 22, 22, 30, 25, 22, 22, 30, 25, 22, 30, 25, 32, 32, 20, 25] },
+            { "mois": "Octobre",    "tp": [12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 10, 15, 12, 12, 10, 15, 12] },
+            { "mois": "Novembre",   "tp": [12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 12, 10, 15, 12, 10, 15, 12, 12, 10, 15] },
+            { "mois": "Décembre",   "tp": [12, 10, 12, 10, 12, 10, 12, 10, 10, 8, 12, 8, 12, 8, 9, 13, 12, 13, 14, 12, 10, 8, 10, 9, 10, 9, 8, 9, 10, 8, 12] }
+        ];
+
+        // ====================================== //
+        
+
+        function releve(temp, node) {
+            for (let i = 0; i < temp.length; i++) {
+                let td = _ce('td', node);
+                    _ct(temp[i], td);
+                    td.css('border: #000 solid 1px;');           
+            }
+        }
+
+
+
+        function displayTableau() {
+
+            // Table 
+                let table = _ce('table', _('body'));
+                // Table Header
+                    let tr = _ce('tr', table);
+
+                    // MOIS
+                        let th = _ce('th', tr);
+                        _ct('Mois', th);
+                        th.css('border: #000 solid 1px;');
+                    // MIN
+                        th = _ce('th', tr);
+                        _ct('Min', th);
+                        th.css('border: #000 solid 1px;');
+                    // MAX
+                        th = _ce('th', tr);
+                        _ct('Max', th);
+                        th.css('border: #000 solid 1px;');
+                    // AVG
+                        th = _ce('th', tr);
+                        _ct('Avg', th);
+                        th.css('border: #000 solid 1px;');
+                // === //
+
+                // Donnée 
+                for (let i = 0; i < temp.length; i++) {
+                    tr = _ce('tr', table);
+                    tr.css('background:#aaa; color:#fff');
+
+                    // MOIS
+                        let td = _ce('td', tr);
+                        _ct(temp[i].mois, td);
+                        td.css('border: #000 solid 1px');
+                    // MIN
+                        td = _ce('td', tr);
+                        _ct(temp[i].tp.min(), td);
+                        td.css('border: #000 solid 1px');
+                    // MAX
+                        td = _ce('td', tr);
+                        _ct(temp[i].tp.max(), td);
+                        td.css('border: #000 solid 1px');
+                    // AVG   
+                        td = _ce('td', tr);
+                        _ct(temp[i].tp.avg(), td);
+                        td.css('border: #000 solid 1px');
+
+                    tableauDeEvent.push({
+                        'node': tr,
+                        'temp': temp[i].tp,
+                        'open': false
+                    });
+                }
+                // === //
+            // === //
+        }
+
+        function colorGreen() {
+            for (let i = 0; i < tableauDeEvent.length; i++) {
+                tableauDeEvent[i].node.addEventListener("mouseenter", function (event) {
+                    tableauDeEvent[i].node.css('background:#11722e; color:#fff');
+                });
+            }
+        }
+
+        function colorGrey() {
+            for (let i = 0; i < tableauDeEvent.length; i++) {
+                tableauDeEvent[i].node.addEventListener("mouseleave", function (event) {
+                    tableauDeEvent[i].node.css('background:#aaa; color:#fff');
+                });
+            }
+        }
+
+        function click() {
+            for (let i = 0; i < tableauDeEvent.length; i++) {
+                tableauDeEvent[i].node.addEventListener("click", function (event) {
+
+                    // Si c'est ouvert
+                    if (tableauDeEvent[i].open) {
+                        // Je supprime
+                        for (let j = tableauDeEvent[i].node.childElementCount-1; j > 3; j--) {
+                            _dn(tableauDeEvent[i].node.children[j]);
+                            tableauDeEvent[i].open = false;
+
+                        }
+                    }
+                    // Si c'est fermer
+                    else {
+                        // J'affiche
+                        releve(tableauDeEvent[i].temp, tableauDeEvent[i].node);
+                        tableauDeEvent[i].open = true;
+                    }
+                });
+            }
+        }
+
+        
+        function addEvent() {
+            // Vert
+            colorGreen();
+
+            // Gris
+            colorGrey();
+
+            // Click 
+            click();
+        }
+
+        // ========================= //
+
+        displayTableau();
+        addEvent()
+
+
+    </script>
+</body>
+</html>

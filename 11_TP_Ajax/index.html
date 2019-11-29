@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="meteo()">METEO</button>
+    <p id="mto"></p>
+    <form action="">
+        <fieldset>
+            <select id="selectCategorie">
+                <!-- Remplie en JS -->
+            </select>
+
+            <select id="selectProduit">
+                <!-- Remplie en JS -->
+            </select>
+        </fieldset>
+    </form>
+
+
+    <script>
+        
+
+        function start() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", 'request.php?r=1');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                     
+                    let r = xhr.responseXML.getElementsByTagName('option');
+                    let a = '';
+
+                    for (let i = 0; i < r.length; i++) {
+                        let opt = document.createElement('option');
+                        let txt = document.createTextNode(r[i].getElementsByTagName('lib')[0].firstChild.data);
+
+                        opt.value =  r[i].getElementsByTagName('id')[0].firstChild.data;
+                        opt.appendChild(txt);
+                        document.getElementById('selectCategorie').appendChild(opt);
+                    }
+
+                }
+
+                
+            }
+            xhr.send();
+        }
+
+        function change() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", 'request.php?r=2');
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('selectProduit').innerHTML = '';
+                    let json = JSON.parse(xhr.responseText);
+                    let a = '';
+
+                    for (let i = 0; i < json.length; i++) {
+                        let opt = document.createElement('option');
+                        let txt = document.createTextNode(json[i].libPro);
+
+                        opt.value = json[i].nomPro;
+                        opt.appendChild(txt);
+                        document.getElementById('selectProduit').appendChild(opt);
+                    }
+                }
+            }
+            xhr.send('id='+ this.value);
+        }
+
+        start();
+
+        document.getElementById('selectCategorie').addEventListener('input', change);
+
+
+        // ==================================================================== //
+
+        var json
+
+        function meteo() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", 'http://api.openweathermap.org/data/2.5/weather?q=Gap,fr&APPID=2abfe14016636106cab599d475788b9b');
+            xhr.send();
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    json = JSON.parse(xhr.responseText);
+                    temp = json.main.temp - 273,15;
+                    document.getElementById('mto').innerHTML = json.weather[0].description + " - " + temp + "C* | Vent : " + json.wind.speed + " - " + json.wind.deg + " deg | Humiditer : " + json.main.humidity
+                }
+            }
+        }
+        
+
+
+    </script>
+</body>
+</html>

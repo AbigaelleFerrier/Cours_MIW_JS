@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>T H E  B A L L</title>
+</head>
+<body>
+
+</body>
+
+<script>
+    windowWidth = function () {
+        if (window.innerWidth) return window.innerWidth            // tous les navigateurs sauf IE
+        else if (document.documentElement.clientWidth)
+            return document.documentElement.clientWidth; // IE Strict
+        else if (document.body.clientWidth)
+            return document.body.clientWidth;            // IE non strict
+        else retun - 1;                              		 // anciens navigateurs
+    }
+
+    windowHeight = function () {
+        if (window.innerHeight) {
+            return window.innerHeight;        // tous les navigateurs sauf IE
+        } 
+        else if (document.documentElement.clientHeight) {
+            return document.documentElement.clientHeight; // IE Strict
+        }
+        else if (document.body.clientHeight) {
+            return document.body.clientHeight;  // IE non strict
+        }          
+        else {
+            return -1; // anciens navigateurs
+        }		  
+    }
+
+    rand = function (max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
+
+    class Ball {
+
+        constructor() {
+            // Position
+            this.x = rand(windowWidth());
+            this.y = rand(windowHeight());
+
+            // Size
+            this.s = rand((5)*10)+10;
+
+            // Speed
+            this.step  = 5;
+            this.iStep = -5;
+
+            this.xp = this.step;
+            this.yp = this.step;
+        }
+
+        display = () => {
+            document.querySelector('body').innerHTML = 
+                `<div style="
+                    top:${this.y}px;
+                    left:${this.x}px;
+                    width:${this.s}px;
+                    height:${this.s}px;
+                    position:fixed;
+                    background-color:#000">
+                </div>`;
+        }
+
+        deplacement = function() {
+            let that = this;
+
+            if (this.x + this.s >= windowWidth() || this.x <= 0) {
+                if (this.xp == this.step) {
+                    this.xp = this.iStep;
+                }
+                else {
+                    this.xp = this.step;
+                }
+            }
+
+            if (this.y + this.s >= windowHeight() || this.y <= 0) {
+                if (this.yp == this.step) {
+                    this.yp = this.iStep;
+                }
+                else {
+                    this.yp = this.step;
+                }
+            }
+
+            this.x += this.xp;
+            this.y += this.yp;
+            
+            document.querySelector('body').innerHTML =
+                `<div style="
+                    top   :${this.y}px;
+                    left  :${this.x}px;
+                    width :${this.s}px;
+                    height:${this.s}px;
+                    position:fixed;
+                    background-color:#000">
+                </div>`;
+            
+            console.log(this)
+
+            window.setTimeout(function(){that.deplacement()},10);
+        }
+
+        
+
+        // timer() {
+        //     window.setInterval(this.deplacement, 1000);
+        // }
+    }
+
+    var ball = new Ball();
+    ball.display();
+    ball.deplacement();
+
+</script>
+
+</html>

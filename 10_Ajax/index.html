@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10_Ajax</title>
+</head>
+<body>
+
+    <div id="s">
+
+    </div>
+    
+    <script>
+        function E1() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", 'e1.xml');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('s').innerHTML = xhr.responseText;
+                        
+                }
+            }
+            xhr.send(); 
+        }
+
+        function E2() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", 'e2.xml');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let a = '';
+                    for (let i = 0; i < xhr.responseXML.getElementsByTagName('client').length; i++) {
+                        a +=
+                            `<tr>
+                            <td>${xhr.responseXML.getElementsByTagName('client')[i].getElementsByTagName('nom')[0].firstChild.data}</td>
+                            <td>${xhr.responseXML.getElementsByTagName('client')[i].getElementsByTagName('prenom')[0].firstChild.data}</td>
+                            <td>${xhr.responseXML.getElementsByTagName('client')[i].getElementsByTagName('age')[0].firstChild.data}</td>
+                        </tr>`;
+                    }
+                    document.getElementById('s').innerHTML = '<table>'+ a +'</table>';
+                }
+            }
+            xhr.send(); 
+        }
+
+        function E3() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", 'e3.json');
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        let a = '';
+                        let json = JSON.parse(xhr.responseText);
+
+                        for (let i = 0; i < json.length; i++) {
+                            a += `<tr>
+                                    <td>${json[i].nom}</td>
+                                    <td>${json[i].prenom}</td>
+                                    <td>${json[i].age}</td>
+                                </tr>`;
+                        }
+                        document.getElementById('s').innerHTML = '<table>' + a + '</table>';
+                    }
+                }
+                xhr.send();
+            }
+    </script>
+</body>
+</html>
